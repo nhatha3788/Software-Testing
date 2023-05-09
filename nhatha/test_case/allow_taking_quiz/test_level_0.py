@@ -202,7 +202,10 @@ class TestLevel0(unittest.TestCase):
         Setup.setup_quiz(self.page, course_name, quiz_name, open_date, close_date, out_of_attempt, restriction)
         Setup.access_course(self.page, course_name)
         Setup.access_quiz(self.page, quiz_name)
-        assert len(WebDriverWait(self.page, timeout=10).until(EC.element_to_be_clickable((By.XPATH, '//button[text()="Attempt quiz"]')))) > 0
+        assert (
+            WebDriverWait(self.page, timeout=10).until(EC.element_to_be_clickable((By.XPATH, '//button[text()="Attempt quiz"]'))).is_displayed()
+            == True
+        )
         # logout
         self.page.find_element(By.XPATH, "//*[@id='user-menu-toggle']").click()
         self.page.find_element(By.XPATH, "//*[@id='carousel-item-main']/a[9]").click()

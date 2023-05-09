@@ -16,9 +16,9 @@ import logging
 @pytest.fixture(scope="module")
 def get_options():
     options = webdriver.ChromeOptions()
-    options.add_argument("--headless=new")
-    # options.add_experimental_option("detach", True)
-    # options.add_experimental_option("excludeSwitches", ["enable-logging"])
+    # options.add_argument("--headless=new")
+    options.add_experimental_option("detach", True)
+    options.add_experimental_option("excludeSwitches", ["enable-logging"])
     return options
 
 
@@ -35,7 +35,7 @@ def home(get_options):
 class Setup:
     @staticmethod
     def set_time(page, type, keys):
-        logging.info(keys)
+        # logging.info(keys)
         page.find_element(By.XPATH, '//*[@id="id_time{}_enabled"]'.format(type)).click()
         page.find_element(By.XPATH, '//*[@id="id_time{}_day"]'.format(type)).send_keys(keys.day)
         page.find_element(By.XPATH, '//*[@id="id_time{}_month"]'.format(type)).send_keys(keys.strftime("%B"))
@@ -92,7 +92,7 @@ class Setup:
             page.find_element(By.XPATH, '//span[text()="User profile field"]/following-sibling::select').send_keys("Email address")
             page.find_element(By.XPATH, '//span[text()="Value to compare against"]/following-sibling::input').send_keys(restriction)
         # save setting
-        page.find_element(By.XPATH, '//*[@id="id_submitbutton"]').click()
+        WebDriverWait(page, timeout=10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="id_submitbutton"]'))).click()
 
         # add questions
         page.find_element(By.PARTIAL_LINK_TEXT, "Questions").click()
@@ -118,7 +118,7 @@ class Setup:
     def access_quiz(page, quiz_name):
         el = WebDriverWait(page, timeout=3).until(EC.presence_of_element_located((By.PARTIAL_LINK_TEXT, quiz_name)))
         el.click()
-        logging.info(page.title)
+        # logging.info(page.title)
 
     @staticmethod
     def attempt(page):
@@ -187,7 +187,10 @@ class TestLevel1(unittest.TestCase):
         Setup.setup_quiz(self.page, course_name, quiz_name, open_date, close_date, out_of_attempt, restriction)
         Setup.access_course(self.page, course_name)
         Setup.access_quiz(self.page, quiz_name)
-        assert len(WebDriverWait(self.page, timeout=10).until(EC.element_to_be_clickable((By.XPATH, '//button[text()="Attempt quiz"]')))) > 0
+        assert (
+            WebDriverWait(self.page, timeout=10).until(EC.element_to_be_clickable((By.XPATH, '//button[text()="Attempt quiz"]'))).is_displayed()
+            == True
+        )
         # logout
         self.page.find_element(By.XPATH, "//*[@id='user-menu-toggle']").click()
         self.page.find_element(By.XPATH, "//*[@id='carousel-item-main']/a[9]").click()
