@@ -74,7 +74,7 @@ class Setup:
     @staticmethod
     def tear_down(page, event):
         event.click()
-        time.sleep(2)
+        time.sleep(3)
         WebDriverWait(page, timeout=10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "div.modal-footer button[data-action='delete']"))).click()
         time.sleep(2)
         delete_all = page.find_elements(By.CSS_SELECTOR, "div.modal-footer button[data-action='deleteall']")
@@ -87,7 +87,8 @@ class Setup:
     @staticmethod
     def create_event_full(page, event_name: str, create_date: datetime.datetime, end_date: datetime.datetime | str | int, repeat: bool | int):
         # name
-        page.find_element(By.CSS_SELECTOR, "input#id_name").send_keys(event_name)
+        if event_name != "None":
+            page.find_element(By.CSS_SELECTOR, "input#id_name").send_keys(event_name)
         # create_date
         page.find_element(By.XPATH, "//select[@id='id_timestart_day']").send_keys(create_date.day)
         page.find_element(By.XPATH, "//select[@id='id_timestart_month']").send_keys(create_date.strftime("%B"))
@@ -139,8 +140,8 @@ class TestLevel1(unittest.TestCase):
     def verify_event_is_created(self, event_title, create_date):
         current = self.get_current_date(create_date)
         time.sleep(3)
-        logging.info(current)
-        logging.info(create_date)
+        # logging.info(current)
+        # logging.info(create_date)
         if current > create_date:
             while current != create_date:
                 WebDriverWait(
@@ -149,7 +150,7 @@ class TestLevel1(unittest.TestCase):
                 ).until(EC.element_to_be_clickable((By.XPATH, "//a[@title='Previous month']"))).click()
                 time.sleep(2)
                 current = self.get_current_date(create_date)
-                logging.info(current)
+                # logging.info(current)
                 time.sleep(3)
         elif current < create_date:
             while current != create_date:
@@ -198,7 +199,12 @@ class TestLevel1(unittest.TestCase):
         Setup.create_event_with_name(self.page, event_name)
         name_field = self.page.find_element(By.XPATH, "//div[@id='fitem_id_name']")
         error = name_field.find_elements(By.CSS_SELECTOR, "div#id_error_name")
+        time.sleep(3)
         assert len(error) > 0
+        close = self.page.find_elements(By.CSS_SELECTOR, "button[aria-label='Close']")
+        if len(close) > 0:
+            close[0].click()
+            time.sleep(3)
 
     @data(*utils.Utility.read_data_from_excel("..\\test_data\\new_event.xlsx", "Testcase_5"))
     @unpack
@@ -231,7 +237,12 @@ class TestLevel1(unittest.TestCase):
         Setup.create_event_full(self.page, event_name, create_date, end_date, repeat)
         repeat_field = self.page.find_element(By.CSS_SELECTOR, "#fitem_id_repeats")
         error = repeat_field.find_elements(By.CSS_SELECTOR, "div#id_error_repeat")
+        time.sleep(3)
         assert len(error) > 0
+        close = self.page.find_elements(By.CSS_SELECTOR, "button[aria-label='Close']")
+        if len(close) > 0:
+            close[0].click()
+            time.sleep(3)
 
     @data(*utils.Utility.read_data_from_excel("..\\test_data\\new_event.xlsx", "Testcase_9"))
     @unpack
@@ -240,7 +251,12 @@ class TestLevel1(unittest.TestCase):
         Setup.create_event_full(self.page, event_name, create_date, end_date, repeat)
         duration_field = self.page.find_element(By.CSS_SELECTOR, "#fgroup_id_durationgroup")
         error = duration_field.find_elements(By.CSS_SELECTOR, "#fgroup_id_error_durationgroup")
+        time.sleep(3)
         assert len(error) > 0
+        close = self.page.find_elements(By.CSS_SELECTOR, "button[aria-label='Close']")
+        if len(close) > 0:
+            close[0].click()
+            time.sleep(3)
 
     @data(*utils.Utility.read_data_from_excel("..\\test_data\\new_event.xlsx", "Testcase_10"))
     @unpack
@@ -249,7 +265,12 @@ class TestLevel1(unittest.TestCase):
         Setup.create_event_full(self.page, event_name, create_date, end_date, repeat)
         duration_field = self.page.find_element(By.CSS_SELECTOR, "#fgroup_id_durationgroup")
         error = duration_field.find_elements(By.CSS_SELECTOR, "#fgroup_id_error_durationgroup")
+        time.sleep(3)
         assert len(error) > 0
+        close = self.page.find_elements(By.CSS_SELECTOR, "button[aria-label='Close']")
+        if len(close) > 0:
+            close[0].click()
+            time.sleep(3)
 
     @data(*utils.Utility.read_data_from_excel("..\\test_data\\new_event.xlsx", "Testcase_11"))
     @unpack
@@ -258,7 +279,12 @@ class TestLevel1(unittest.TestCase):
         Setup.create_event_full(self.page, event_name, create_date, end_date, repeat)
         duration_field = self.page.find_element(By.CSS_SELECTOR, "#fgroup_id_durationgroup")
         error = duration_field.find_elements(By.CSS_SELECTOR, "#fgroup_id_error_durationgroup")
+        time.sleep(3)
         assert len(error) > 0
+        close = self.page.find_elements(By.CSS_SELECTOR, "button[aria-label='Close']")
+        if len(close) > 0:
+            close[0].click()
+            time.sleep(3)
 
     @data(*utils.Utility.read_data_from_excel("..\\test_data\\new_event.xlsx", "Testcase_12"))
     @unpack
@@ -267,7 +293,12 @@ class TestLevel1(unittest.TestCase):
         Setup.create_event_full(self.page, event_name, create_date, end_date, repeat)
         name_field = self.page.find_element(By.XPATH, "//div[@id='fitem_id_name']")
         error = name_field.find_elements(By.CSS_SELECTOR, "div#id_error_name")
+        time.sleep(3)
         assert len(error) > 0
+        close = self.page.find_elements(By.CSS_SELECTOR, "button[aria-label='Close']")
+        if len(close) > 0:
+            close[0].click()
+            time.sleep(3)
 
     @data(*utils.Utility.read_data_from_excel("..\\test_data\\new_event.xlsx", "Testcase_13"))
     @unpack
@@ -276,7 +307,12 @@ class TestLevel1(unittest.TestCase):
         Setup.create_event_full(self.page, event_name, create_date, end_date, repeat)
         repeat_field = self.page.find_element(By.CSS_SELECTOR, "#fitem_id_repeats")
         error = repeat_field.find_elements(By.CSS_SELECTOR, "div#id_error_repeat")
+        time.sleep(3)
         assert len(error) > 0
+        close = self.page.find_elements(By.CSS_SELECTOR, "button[aria-label='Close']")
+        if len(close) > 0:
+            close[0].click()
+            time.sleep(3)
 
     @data(*utils.Utility.read_data_from_excel("..\\test_data\\new_event.xlsx", "Testcase_14"))
     @unpack

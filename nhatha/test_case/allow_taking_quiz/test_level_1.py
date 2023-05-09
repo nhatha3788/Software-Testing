@@ -223,9 +223,8 @@ class TestLevel1(unittest.TestCase):
     def test_8(self, course_name, quiz_name, open_date, close_date, out_of_attempt, restriction):
         Setup.setup_quiz(self.page, course_name, quiz_name, open_date, close_date, out_of_attempt, restriction)
         Setup.access_course(self.page, course_name)
-        Setup.access_quiz(self.page, quiz_name)
-        assert quiz_name in self.page.title
-        assert len(self.page.find_elements(By.XPATH, '//button[text()="Attempt quiz"]')) == 0
+        assert len(self.page.find_elements(By.PARTIAL_LINK_TEXT, quiz_name)) == 0
+        assert "Not available unless: Your <strong>Email address</strong> is <strong>{}</strong>".format(restriction) in self.page.page_source
         # logout
         self.page.find_element(By.XPATH, "//*[@id='user-menu-toggle']").click()
         self.page.find_element(By.XPATH, "//*[@id='carousel-item-main']/a[9]").click()

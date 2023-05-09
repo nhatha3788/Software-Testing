@@ -181,7 +181,12 @@ class TestLevel0:
         Setup.create_event_with_name(self.page, event_name)
         name_field = self.page.find_element(By.XPATH, "//div[@id='fitem_id_name']")
         error = name_field.find_elements(By.CSS_SELECTOR, "div#id_error_name")
+        time.sleep(3)
         assert len(error) > 0
+        close = self.page.find_elements(By.CSS_SELECTOR, "button[aria-label='Close']")
+        if len(close) > 0:
+            close[0].click()
+            time.sleep(3)
 
     def test_5(self):
         event_name = "X"
@@ -222,7 +227,12 @@ class TestLevel0:
         Setup.create_event_full(self.page, event_name, create_date, end_date, repeat)
         repeat_field = self.page.find_element(By.CSS_SELECTOR, "#fitem_id_repeats")
         error = repeat_field.find_elements(By.CSS_SELECTOR, "div#id_error_repeat")
+        time.sleep(3)
         assert len(error) > 0
+        close = self.page.find_elements(By.CSS_SELECTOR, "button[aria-label='Close']")
+        if len(close) > 0:
+            close[0].click()
+            time.sleep(3)
 
     def test_9(self):
         event_name = "X"
@@ -233,7 +243,12 @@ class TestLevel0:
         Setup.create_event_full(self.page, event_name, create_date, end_date, repeat)
         duration_field = self.page.find_element(By.CSS_SELECTOR, "#fgroup_id_durationgroup")
         error = duration_field.find_elements(By.CSS_SELECTOR, "#fgroup_id_error_durationgroup")
+        time.sleep(3)
         assert len(error) > 0
+        close = self.page.find_elements(By.CSS_SELECTOR, "button[aria-label='Close']")
+        if len(close) > 0:
+            close[0].click()
+            time.sleep(3)
 
     def test_10(self):
         event_name = "X"
@@ -244,7 +259,12 @@ class TestLevel0:
         Setup.create_event_full(self.page, event_name, create_date, end_date, repeat)
         duration_field = self.page.find_element(By.CSS_SELECTOR, "#fgroup_id_durationgroup")
         error = duration_field.find_elements(By.CSS_SELECTOR, "#fgroup_id_error_durationgroup")
+        time.sleep(3)
         assert len(error) > 0
+        close = self.page.find_elements(By.CSS_SELECTOR, "button[aria-label='Close']")
+        if len(close) > 0:
+            close[0].click()
+            time.sleep(3)
 
     def test_11(self):
         event_name = "X"
@@ -255,10 +275,15 @@ class TestLevel0:
         Setup.create_event_full(self.page, event_name, create_date, end_date, repeat)
         duration_field = self.page.find_element(By.CSS_SELECTOR, "#fgroup_id_durationgroup")
         error = duration_field.find_elements(By.CSS_SELECTOR, "#fgroup_id_error_durationgroup")
+        time.sleep(3)
         assert len(error) > 0
+        close = self.page.find_elements(By.CSS_SELECTOR, "button[aria-label='Close']")
+        if len(close) > 0:
+            close[0].click()
+            time.sleep(3)
 
     def test_12(self):
-        event_name = "X"
+        event_name = "None"
         create_date = datetime.datetime(2023, 4, 9, 0, 25)
         end_date = "Without Duration"
         repeat = 1
@@ -266,7 +291,12 @@ class TestLevel0:
         Setup.create_event_full(self.page, event_name, create_date, end_date, repeat)
         name_field = self.page.find_element(By.XPATH, "//div[@id='fitem_id_name']")
         error = name_field.find_elements(By.CSS_SELECTOR, "div#id_error_name")
+        time.sleep(3)
         assert len(error) > 0
+        close = self.page.find_elements(By.CSS_SELECTOR, "button[aria-label='Close']")
+        if len(close) > 0:
+            close[0].click()
+            time.sleep(3)
 
     def test_13(self):
         event_name = "X"
@@ -277,7 +307,12 @@ class TestLevel0:
         Setup.create_event_full(self.page, event_name, create_date, end_date, repeat)
         repeat_field = self.page.find_element(By.CSS_SELECTOR, "#fitem_id_repeats")
         error = repeat_field.find_elements(By.CSS_SELECTOR, "div#id_error_repeat")
+        time.sleep(3)
         assert len(error) > 0
+        close = self.page.find_elements(By.CSS_SELECTOR, "button[aria-label='Close']")
+        if len(close) > 0:
+            close[0].click()
+            time.sleep(3)
 
     def test_14(self):
         event_name = "X"
